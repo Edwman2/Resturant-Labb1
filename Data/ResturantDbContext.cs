@@ -10,10 +10,10 @@ namespace Resturant_Labb1.Data
 
         }
 
-        public DbSet<Admin> admins { get; set; }
-        public DbSet<Customer> customers { get; set; }
-        public DbSet<Booking> bookings { get; set; }
-        public DbSet<Table> tables { get; set; }
-        public DbSet<MenuItem> menuItems { get; set; }
+        public DbSet<Admin> Admins { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Table> Tables { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
     }
 }
