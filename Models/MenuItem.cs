@@ -1,7 +1,10 @@
-﻿namespace Resturant_Labb1.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Resturant_Labb1.Models
 {
     public class MenuItem
     {
+        [Key]
         public int MenuId { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }

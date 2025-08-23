@@ -1,7 +1,10 @@
-﻿namespace Resturant_Labb1.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Resturant_Labb1.Models
 {
     public class Table
     {
+        [Key]
         public int TableId { get; set; }
         public int TableNumber { get; set; }
 
