@@ -93,7 +93,7 @@ namespace Resturant_Labb1.Services
 
             await _customerRepo.SaveChangesAsync();
 
-            return true;
+            return true; 
         }
     }
 }

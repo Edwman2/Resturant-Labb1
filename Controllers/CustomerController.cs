@@ -44,5 +44,37 @@ namespace Resturant_Labb1.Controllers
 
             return CreatedAtAction(nameof(GetCustomerById), new { id = createdCustomer.CustomerId }, createdCustomer);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<CustomerDTO>> DeleteCustomerAsync(int id)
+        {
+            var success = await _customerService.DeleteCustomerAsync(id);
+
+            if (!success)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<CustomerDTO>> UpdateCustomerAsync(int id, [FromBody] CustomerDTO customerDTO)
+        {
+            if (customerDTO == null)
+            {
+                return BadRequest("User data is required");
+            }
+
+            var customerUpdate = await _customerService.UpdateCustomerAsync(id, customerDTO);
+
+            if(!customerUpdate)
+            {
+                return NotFound($"Customer with id {id} not found");
+            }
+
+            return NoContent();
+        }
+        
+        
     }
 }
