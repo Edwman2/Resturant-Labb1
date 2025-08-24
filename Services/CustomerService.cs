@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Resturant_Labb1.DTOs.Customers;
+using Resturant_Labb1.DTOs.RequestDTOs;
+using Resturant_Labb1.DTOs.Response;
 using Resturant_Labb1.Models;
 using Resturant_Labb1.Repositories.IRepository;
 using Resturant_Labb1.Services.IServices;

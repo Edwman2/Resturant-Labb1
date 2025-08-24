@@ -12,7 +12,7 @@ namespace Resturant_Labb1.Models
         public DateTime EndTime => BookingTime.AddHours(2);
 
         public int TableId { get; set; }
-        public Table Table { get; set; }
+        public ResturantTable Table { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
 

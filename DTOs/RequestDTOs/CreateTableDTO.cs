@@ -1,8 +1,9 @@
-﻿namespace Resturant_Labb1.DTOs.Tables
+﻿namespace Resturant_Labb1.DTOs.RequestDTOs
 {
-    public class TableDTO
+    public class CreateTableDTO
     {
         public int TableNumber { get; set; }
         public int Seats { get; set; }
+
     }
 }

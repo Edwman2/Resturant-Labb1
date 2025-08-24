@@ -1,4 +1,5 @@
-﻿using Resturant_Labb1.DTOs.Customers;
+﻿using Resturant_Labb1.DTOs.RequestDTOs;
+using Resturant_Labb1.DTOs.Response;
 
 namespace Resturant_Labb1.Services.IServices
 {

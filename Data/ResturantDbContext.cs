@@ -13,7 +13,7 @@ namespace Resturant_Labb1.Data
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Booking> Bookings { get; set; }
-        public DbSet<Table> Tables { get; set; }
+        public DbSet<ResturantTable> ResturantTables { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
     }
 }

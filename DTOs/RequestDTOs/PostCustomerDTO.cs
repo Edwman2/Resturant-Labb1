@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Resturant_Labb1.DTOs.Customers
+namespace Resturant_Labb1.DTOs.RequestDTOs
 {
     public class PostCustomerDTO
     {

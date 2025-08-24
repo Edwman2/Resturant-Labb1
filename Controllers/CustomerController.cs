@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Resturant_Labb1.DTOs.Customers;
+using Resturant_Labb1.DTOs.RequestDTOs;
 using Resturant_Labb1.Services.IServices;
 
 namespace Resturant_Labb1.Controllers
