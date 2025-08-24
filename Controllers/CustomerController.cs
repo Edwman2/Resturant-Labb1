@@ -18,7 +18,7 @@ namespace Resturant_Labb1.Controllers
 
         [HttpGet]
 
-        public async Task<ActionResult<List<CustomerDTO>>> GetAllCustomersAsync()
+        public async Task<ActionResult<List<PostCustomerDTO>>> GetAllCustomersAsync()
         {
             var customers =  await _customerService.GetAllCustomersAsync();
 
@@ -26,7 +26,7 @@ namespace Resturant_Labb1.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CustomerDTO>> GetCustomerById(int id)
+        public async Task<ActionResult<PostCustomerDTO>> GetCustomerById(int id)
         {
             var customers = await _customerService.GetCustomersByIdAsync(id);
             if(customers == null)
@@ -38,7 +38,7 @@ namespace Resturant_Labb1.Controllers
 
         }
         [HttpPost]
-        public async Task<ActionResult<CustomerDTO>> CreateCustomerAsync(CustomerDTO customer)
+        public async Task<ActionResult<PostCustomerDTO>> CreateCustomerAsync(PostCustomerDTO customer)
         {
             var createdCustomer = await _customerService.CreateCustomerAsync(customer);
 
@@ -46,7 +46,7 @@ namespace Resturant_Labb1.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CustomerDTO>> DeleteCustomerAsync(int id)
+        public async Task<ActionResult<PostCustomerDTO>> DeleteCustomerAsync(int id)
         {
             var success = await _customerService.DeleteCustomerAsync(id);
 
@@ -58,7 +58,7 @@ namespace Resturant_Labb1.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<CustomerDTO>> UpdateCustomerAsync(int id, [FromBody] CustomerDTO customerDTO)
+        public async Task<ActionResult<PostCustomerDTO>> UpdateCustomerAsync(int id, [FromBody] PostCustomerDTO customerDTO)
         {
             if (customerDTO == null)
             {

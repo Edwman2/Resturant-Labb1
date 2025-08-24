@@ -15,21 +15,20 @@ namespace Resturant_Labb1.Services
             _customerRepo = customerRepo;
         }
 
-        public async Task<CustomerDTO> CreateCustomerAsync(CustomerDTO customerDTO)
+        public async Task<ResponseCustomerDTO> CreateCustomerAsync(ResponseCustomerDTO responseCustomerDTO)
         {
             var customers = new Customer
             { 
-                Name = customerDTO.Name,
-                Lastname = customerDTO.Lastname,
-                Phonenumber = customerDTO.Phonenumber,
-                Email = customerDTO.Email
+                Name = responseCustomerDTO.Name,
+                Lastname = responseCustomerDTO.Lastname,
+                Phonenumber = responseCustomerDTO.Phonenumber,
+                Email = responseCustomerDTO.Email
             };
 
             var newCustomer = await _customerRepo.AddCustomerAsync(customers);
 
-            return new CustomerDTO
+            return new ResponseCustomerDTO
             {
-                CustomerId = newCustomer,
                 Name = customers.Name,
                 Lastname = customers.Lastname,
                 Phonenumber = customers.Phonenumber,
@@ -42,10 +41,10 @@ namespace Resturant_Labb1.Services
             return await _customerRepo.DeleteCustomerAsync(CustomerId);
         }
 
-        public async Task<List<CustomerDTO>> GetAllCustomersAsync()
+        public async Task<List<ResponseCustomerDTO>> GetAllCustomersAsync()
         {
             var customers = await _customerRepo.GetAllCustomersAsync();
-            var customerDTO = customers.Select(c => new CustomerDTO
+            var customerDTO = customers.Select(c => new ResponseCustomerDTO
             {
                 CustomerId = c.CustomerId,
                 Name = c.Name,
@@ -58,7 +57,7 @@ namespace Resturant_Labb1.Services
             return customerDTO;
         }
 
-        public async Task<CustomerDTO> GetCustomersByIdAsync(int CustomerId)
+        public async Task<ResponseCustomerDTO> GetCustomersByIdAsync(int CustomerId)
         {
             var customer = await _customerRepo.GetCustomerById(CustomerId);
 
@@ -67,7 +66,7 @@ namespace Resturant_Labb1.Services
                 return null;
             }
 
-            var customerDTO = new CustomerDTO
+            var customerDTO = new ResponseCustomerDTO
             {
                 CustomerId = customer.CustomerId,
                 Name = customer.Name,
@@ -79,7 +78,7 @@ namespace Resturant_Labb1.Services
             return customerDTO;
         }
 
-        public async Task<bool> UpdateCustomerAsync(int id, CustomerDTO customerDTO)
+        public async Task<bool> UpdateCustomerAsync(int id, PostCustomerDTO customerDTO)
         {
             var customer = await _customerRepo.GetCustomerById(id);
             if(customer == null)

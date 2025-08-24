@@ -2,10 +2,8 @@
 
 namespace Resturant_Labb1.DTOs.Customers
 {
-    public class CustomerDTO
+    public class PostCustomerDTO
     {
-        [Key]
-        public int CustomerId { get; set; }
         public string Name { get; set; }
         public string Lastname { get; set; }
         public int Phonenumber { get; set; }
