@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Resturant_Labb1.DTOs.RequestDTOs;
+using Resturant_Labb1.DTOs.Response;
 using Resturant_Labb1.Services.IServices;
 
 namespace Resturant_Labb1.Controllers
@@ -38,9 +39,9 @@ namespace Resturant_Labb1.Controllers
 
         }
         [HttpPost]
-        public async Task<ActionResult<PostCustomerDTO>> CreateCustomerAsync(PostCustomerDTO customer)
+        public async Task<ActionResult<ResponseCustomerDTO>> CreateCustomerAsync(ResponseCustomerDTO responseCustomerDTO)
         {
-            var createdCustomer = await _customerService.CreateCustomerAsync(customer);
+            var createdCustomer = await _customerService.CreateCustomerAsync(responseCustomerDTO);
 
             return CreatedAtAction(nameof(GetCustomerById), new { id = createdCustomer.CustomerId }, createdCustomer);
         }

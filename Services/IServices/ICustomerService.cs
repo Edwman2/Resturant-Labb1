@@ -7,7 +7,7 @@ namespace Resturant_Labb1.Services.IServices
     {
         Task<List<ResponseCustomerDTO>> GetAllCustomersAsync();
         Task<ResponseCustomerDTO> GetCustomersByIdAsync(int CustomerId);
-        Task<ResponseCustomerDTO> CreateCustomerAsync(ResponseCustomerDTO responseSCustomerDTO);
+        Task<ResponseCustomerDTO> CreateCustomerAsync(ResponseCustomerDTO responseCustomerDTO);
         Task<bool> UpdateCustomerAsync(int id, PostCustomerDTO postCustomerDTO);
         Task<bool> DeleteCustomerAsync(int CustomerId);
     }

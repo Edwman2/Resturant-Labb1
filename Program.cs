@@ -24,6 +24,8 @@ namespace Resturant_Labb1
 
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddScoped<ICustomerService, CustomerService>();
+            builder.Services.AddScoped<IResturantTableRepository, ResturantTableRepository>();
+            builder.Services.AddScoped<IResturantTableService, ResturantTableService>();
             //builder.Services.AddScoped<I>
 
             builder.Services.AddControllers();
