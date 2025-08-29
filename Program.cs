@@ -1,8 +1,10 @@
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Resturant_Labb1.Data;
+using Resturant_Labb1.Models;
 using Resturant_Labb1.Repositories;
 using Resturant_Labb1.Repositories.IRepository;
 using Resturant_Labb1.Services;
@@ -25,13 +27,15 @@ namespace Resturant_Labb1
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-            builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<IResturantTableRepository, ResturantTableRepository>();
             builder.Services.AddScoped<IResturantTableService, ResturantTableService>();
             builder.Services.AddScoped<IBookingRepository, BookingRepository>();
             builder.Services.AddScoped<IBookingService, BookingService>();
-            //builder.Services.AddScoped<I>
+            builder.Services.AddScoped<IPasswordHasher<SuperAdmin>, PasswordHasher<SuperAdmin>>();
+            builder.Services.AddScoped<ISuperAdminRepository, SuperAdminRepository>();
+            builder.Services.AddScoped<ISuperAdminService, SuperAdminService>();
+            
+            
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -55,11 +59,7 @@ namespace Resturant_Labb1
 
             var app = builder.Build();
 
-            using (var scope = app.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<ResturantDbContext>();
-                var config = services.GetRequiredService<IConfiguration>();
+            
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

@@ -9,7 +9,7 @@ namespace Resturant_Labb1.Services.IServices
         Task<BookingDTO> GetBookingByIdAsync(int BookingId);
         Task<bool> UpdateBookingAsync(int BookingId, UpdateBookingDTO updateBookingDTO );
         Task<bool> DeleteBookingAsync(int BookingId);
-        Task<bool> IsTableAvailableAsync(BookingDTO bookingDTO);
+        Task<TableDTO> FindAvailableTable(BookingDTO bookingDTO);
         Task<BookingDTO?> BookTableAsync(BookingDTO bookingDTO);
     }
 }

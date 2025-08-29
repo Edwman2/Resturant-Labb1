@@ -12,8 +12,8 @@ using Resturant_Labb1.Data;
 namespace Resturant_Labb1.Migrations
 {
     [DbContext(typeof(ResturantDbContext))]
-    [Migration("20250828215619_Adminupdate")]
-    partial class Adminupdate
+    [Migration("20250829084639_fixedprob")]
+    partial class fixedprob
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -2,7 +2,7 @@
 
 namespace Resturant_Labb1.Models
 {
-    public class ResturantTable
+    public class Table
     {
         [Key]
         public int TableId { get; set; }

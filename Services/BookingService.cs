@@ -10,48 +10,57 @@ namespace Resturant_Labb1.Services
     public class BookingService : IBookingService
     {
         private readonly IBookingRepository _bookingRepo;
-        private readonly ICustomerRepository _customerRepository;
+        private readonly IResturantTableRepository _tableRepo;
 
 
-        public BookingService(IBookingRepository bookingRepo, ICustomerRepository customerRepository)
+        public BookingService(IBookingRepository bookingRepo, IResturantTableRepository tableRepo)
         {
             _bookingRepo = bookingRepo;
-            _customerRepository = customerRepository;
+            _tableRepo = tableRepo;
         }
-        public async Task<bool> IsTableAvailableAsync(BookingDTO bookingDTO)
+
+        public async Task<TableDTO> FindAvailableTable(BookingDTO  bookingDTO)
         {
+            var tables = await _tableRepo.GetAllResturantTablesAsync();
+            var bookings = await _bookingRepo.GetAllBookingsAsync();
+
             var blockStart = bookingDTO.BookingTime.AddHours(-1);
             var blockEnd = bookingDTO.BookingTime.AddHours(2);
 
-            var bookings = await _bookingRepo.GetAllBookingsAsync();
+            foreach (var table in tables)
+            {
+                if (bookingDTO.NumberOfGuests > table.Seats)
+                    continue;
 
-            return !bookings.Any(b =>
-            b.TableId == bookingDTO.TableId &&
-            b.BookingTime.AddHours(-1) < blockEnd &&
-            b.EndTime > blockStart
-            );
+                bool occupied = bookings.Any(b =>
+                b.TableId == table.TableId &&
+                b.BookingTime.AddHours(-1) < blockEnd &&
+                b.EndTime > blockStart);
+
+                if(!occupied)
+                {
+                    return new TableDTO { TableId = table.TableId, Seats = table.Seats };
+                }
+
+               
+            }
+            return null;
         }
         public async Task<BookingDTO> BookTableAsync(BookingDTO bookingDTO)
         {
-            if (!await IsTableAvailableAsync(bookingDTO))
-                return null;
-            var customer = new Customer
+            var availableTable = await FindAvailableTable(bookingDTO);
+            if(availableTable == null)
             {
-                Name = bookingDTO.Name,
-                Lastname = bookingDTO.Lastname,
-                Phonenumber = bookingDTO.Phonenumber,
-                Email = bookingDTO.Email
-            };
-
-            await _customerRepository.AddCustomerAsync(customer);
-            await _customerRepository.SaveChangesAsync();
+                return null;
+            }
 
             var booking = new Booking
             {
                 BookingTime = bookingDTO.BookingTime,
                 NumberOfGuests = bookingDTO.NumberOfGuests,
-                CustomerId = customer.CustomerId,
-                TableId = bookingDTO.TableId
+                Firstname = bookingDTO.Firstname,
+                Lastname = bookingDTO.Lastname,
+                TableId = availableTable.TableId,
             };
 
             var newBooking = await _bookingRepo.AddBookingAsync(booking);
@@ -62,8 +71,10 @@ namespace Resturant_Labb1.Services
                 BookingId = newBooking.BookingId,
                 BookingTime = newBooking.BookingTime,
                 NumberOfGuests = newBooking.NumberOfGuests,
-                CustomerId = newBooking.CustomerId,
+                Firstname = newBooking.Firstname,
+                Lastname = newBooking.Lastname,
                 TableId = newBooking.TableId
+                
             };
         }
 

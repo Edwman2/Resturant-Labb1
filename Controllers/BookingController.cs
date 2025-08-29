@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Resturant_Labb1.DTOs.RequestDTOs;
 using Resturant_Labb1.DTOs.ResponseDTOs;
 using Resturant_Labb1.Repositories.IRepository;
 using Resturant_Labb1.Services.IServices;
@@ -12,10 +14,12 @@ namespace Resturant_Labb1.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IBookingService _bookingService;
+        private readonly IResturantTableService _tableService;
 
-        public BookingController(IBookingService bookingService)
+        public BookingController(IBookingService bookingService,IResturantTableService tableService)
         {
             _bookingService = bookingService;
+            _tableService = tableService;
         }
 
         [HttpGet]
@@ -40,14 +44,14 @@ namespace Resturant_Labb1.Controllers
         [HttpPost("CheckAvailability")]
         public async Task<ActionResult> CheckAvailability([FromBody] BookingDTO bookingDTO)
         {
-            var isAvailable = await _bookingService.IsTableAvailableAsync(bookingDTO);
-            if(isAvailable)
+            var isAvailable = await _bookingService.FindAvailableTable(bookingDTO);
+            if(isAvailable != null)
             {
                 return Ok(new { Message = "Table is available" });
             }
             else
             {
-                return BadRequest(new { Messagae = "Table is already booked" });
+                return BadRequest(new { Message = "Table is already booked" });
             }
         }
 

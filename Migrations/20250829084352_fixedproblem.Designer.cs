@@ -12,8 +12,8 @@ using Resturant_Labb1.Data;
 namespace Resturant_Labb1.Migrations
 {
     [DbContext(typeof(ResturantDbContext))]
-    [Migration("20250826221339_booking")]
-    partial class booking
+    [Migration("20250829084352_fixedproblem")]
+    partial class fixedproblem
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,10 @@ namespace Resturant_Labb1.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdminId"));
 
                     b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -95,8 +99,9 @@ namespace Resturant_Labb1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Phonenumber")
-                        .HasColumnType("int");
+                    b.Property<string>("Phonenumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CustomerId");
 

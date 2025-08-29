@@ -13,17 +13,17 @@ namespace Resturant_Labb1.Repositories
         {
             _context = context;
         }
-        public async Task<ResturantTable> AddResturantTableAsync(ResturantTable resturantTable)
+        public async Task<Table> AddResturantTableAsync(Table tables)
         {
-            _context.ResturantTables.Add(resturantTable);
+            _context.Tables.Add(tables);
             await _context.SaveChangesAsync();
 
-            return resturantTable;
+            return tables;
         }
 
         public async Task<bool> DeleteResturantTableAsync(int id)
         {
-            var rowsAffected = await _context.ResturantTables.Where(r => r.TableId == id).ExecuteDeleteAsync();
+            var rowsAffected = await _context.Tables.Where(r => r.TableId == id).ExecuteDeleteAsync();
 
             if(rowsAffected > 0)
             {
@@ -32,16 +32,16 @@ namespace Resturant_Labb1.Repositories
             return false;
         }
 
-        public Task<List<ResturantTable>> GetAllResturantTablesAsync()
+        public Task<List<Table>> GetAllResturantTablesAsync()
         {
-            var tables = _context.ResturantTables.ToListAsync();
+            var tables = _context.Tables.ToListAsync();
 
             return tables;
         }
 
-        public async Task<ResturantTable> GetResturantTablesById(int TableId)
+        public async Task<Table> GetResturantTablesById(int TableId)
         {
-            return await _context.ResturantTables.FindAsync(TableId);
+            return await _context.Tables.FindAsync(TableId);
 
            
         }

@@ -12,8 +12,8 @@ using Resturant_Labb1.Data;
 namespace Resturant_Labb1.Migrations
 {
     [DbContext(typeof(ResturantDbContext))]
-    [Migration("20250828205701_init")]
-    partial class init
+    [Migration("20250829175722_Updatedversion")]
+    partial class Updatedversion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,27 +24,6 @@ namespace Resturant_Labb1.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Resturant_Labb1.Models.Admin", b =>
-                {
-                    b.Property<int>("AdminId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdminId"));
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AdminId");
-
-                    b.ToTable("Admins");
-                });
 
             modelBuilder.Entity("Resturant_Labb1.Models.Booking", b =>
                 {
@@ -57,33 +36,7 @@ namespace Resturant_Labb1.Migrations
                     b.Property<DateTime>("BookingTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberOfGuests")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TableId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookingId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("TableId");
-
-                    b.ToTable("Bookings");
-                });
-
-            modelBuilder.Entity("Resturant_Labb1.Models.Customer", b =>
-                {
-                    b.Property<int>("CustomerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
-
-                    b.Property<string>("Email")
+                    b.Property<string>("Firstname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -91,17 +44,21 @@ namespace Resturant_Labb1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("NumberOfGuests")
+                        .HasColumnType("int");
 
                     b.Property<string>("Phonenumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CustomerId");
+                    b.Property<int>("TableId")
+                        .HasColumnType("int");
 
-                    b.ToTable("Customers");
+                    b.HasKey("BookingId");
+
+                    b.HasIndex("TableId");
+
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("Resturant_Labb1.Models.MenuItem", b =>
@@ -134,7 +91,32 @@ namespace Resturant_Labb1.Migrations
                     b.ToTable("MenuItems");
                 });
 
-            modelBuilder.Entity("Resturant_Labb1.Models.ResturantTable", b =>
+            modelBuilder.Entity("Resturant_Labb1.Models.SuperAdmin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SuperAdmins");
+                });
+
+            modelBuilder.Entity("Resturant_Labb1.Models.Table", b =>
                 {
                     b.Property<int>("TableId")
                         .ValueGeneratedOnAdd()
@@ -150,34 +132,21 @@ namespace Resturant_Labb1.Migrations
 
                     b.HasKey("TableId");
 
-                    b.ToTable("ResturantTables");
+                    b.ToTable("Tables");
                 });
 
             modelBuilder.Entity("Resturant_Labb1.Models.Booking", b =>
                 {
-                    b.HasOne("Resturant_Labb1.Models.Customer", "Customer")
-                        .WithMany("Bookings")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Resturant_Labb1.Models.ResturantTable", "Table")
+                    b.HasOne("Resturant_Labb1.Models.Table", "Table")
                         .WithMany("Bookings")
                         .HasForeignKey("TableId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
-
                     b.Navigation("Table");
                 });
 
-            modelBuilder.Entity("Resturant_Labb1.Models.Customer", b =>
-                {
-                    b.Navigation("Bookings");
-                });
-
-            modelBuilder.Entity("Resturant_Labb1.Models.ResturantTable", b =>
+            modelBuilder.Entity("Resturant_Labb1.Models.Table", b =>
                 {
                     b.Navigation("Bookings");
                 });

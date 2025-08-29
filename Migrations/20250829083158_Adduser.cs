@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Resturant_Labb1.Migrations
 {
     /// <inheritdoc />
-    public partial class inti1 : Migration
+    public partial class Adduser : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,8 @@ namespace Resturant_Labb1.Migrations
                     AdminId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,7 +34,7 @@ namespace Resturant_Labb1.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Lastname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phonenumber = table.Column<int>(type: "int", nullable: false),
+                    Phonenumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -59,7 +60,7 @@ namespace Resturant_Labb1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tables",
+                name: "ResturantTables",
                 columns: table => new
                 {
                     TableId = table.Column<int>(type: "int", nullable: false)
@@ -69,7 +70,7 @@ namespace Resturant_Labb1.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tables", x => x.TableId);
+                    table.PrimaryKey("PK_ResturantTables", x => x.TableId);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,9 +94,9 @@ namespace Resturant_Labb1.Migrations
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Bookings_Tables_TableId",
+                        name: "FK_Bookings_ResturantTables_TableId",
                         column: x => x.TableId,
-                        principalTable: "Tables",
+                        principalTable: "ResturantTables",
                         principalColumn: "TableId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -127,7 +128,7 @@ namespace Resturant_Labb1.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Tables");
+                name: "ResturantTables");
         }
     }
 }

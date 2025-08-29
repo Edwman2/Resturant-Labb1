@@ -5,7 +5,7 @@
 namespace Resturant_Labb1.Migrations
 {
     /// <inheritdoc />
-    public partial class made : Migration
+    public partial class fixedproblem : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

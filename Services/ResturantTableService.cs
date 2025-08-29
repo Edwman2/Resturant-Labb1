@@ -19,7 +19,7 @@ namespace Resturant_Labb1.Services
 
         public async Task<TableDTO> CreateResturantTableAsync(TableDTO tableDTO)
         {
-            var resturantTable = new ResturantTable
+            var resturantTable = new Table
             {
                 TableNumber = tableDTO.TableNumber,
                 Seats = tableDTO.Seats
