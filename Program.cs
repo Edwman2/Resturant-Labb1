@@ -61,8 +61,6 @@ namespace Resturant_Labb1
                 var context = services.GetRequiredService<ResturantDbContext>();
                 var config = services.GetRequiredService<IConfiguration>();
 
-                DbInitializer.Initialize(context, config);
-            }
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
