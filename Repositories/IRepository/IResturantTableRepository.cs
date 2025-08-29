@@ -6,7 +6,7 @@ namespace Resturant_Labb1.Repositories.IRepository
     {
         Task<List<ResturantTable>> GetAllResturantTablesAsync();
         Task<ResturantTable> GetResturantTablesById(int TableId);
-        Task<int> AddResturantTableAsync(ResturantTable resturantTable);
+        Task<ResturantTable> AddResturantTableAsync(ResturantTable resturantTable);
         Task<bool> DeleteResturantTableAsync(int TableId);
         Task SaveChangesAsync();
 

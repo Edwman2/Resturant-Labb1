@@ -21,13 +21,13 @@ namespace Resturant_Labb1.Controllers
         [HttpGet]
         public async Task<ActionResult<List<TableDTO>>> GetAllResturantTablesAsync()
         {
-            var tables = _resturantTableService.GetAllResturantTablesAsync();
+            var tables = await _resturantTableService.GetAllResturantTablesAsync();
             return Ok(tables);
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<TableDTO>> GetResturantTablesByIdAsync(int id)
+        public async Task<ActionResult<TableDTO>> GetResturantTablesById(int id)
         {
-            var tables = await _resturantTableService.GetResturantTablesById(id);
+            var tables = await _resturantTableService.GetResturantTablesByIdAsync(id);
             if(tables == null)
             {
                 return NotFound($"Resturant table with id {id} can not be found");
@@ -41,7 +41,8 @@ namespace Resturant_Labb1.Controllers
         public async Task<ActionResult<TableDTO>> CreateResturantTableAsync(TableDTO tableDTO)
         {
             var createdTable = await _resturantTableService.CreateResturantTableAsync(tableDTO);
-            return CreatedAtAction(nameof(GetResturantTablesByIdAsync), new { id = createdTable.TableId }, createdTable);
+
+            return CreatedAtAction(nameof(GetResturantTablesById), new { id = createdTable.TableId }, createdTable);
         }
     }
 }

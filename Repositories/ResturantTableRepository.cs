@@ -13,12 +13,12 @@ namespace Resturant_Labb1.Repositories
         {
             _context = context;
         }
-        public async Task<int> AddResturantTableAsync(ResturantTable resturantTable)
+        public async Task<ResturantTable> AddResturantTableAsync(ResturantTable resturantTable)
         {
-            _context.ResturantTables.AddAsync(resturantTable);
+            _context.ResturantTables.Add(resturantTable);
             await _context.SaveChangesAsync();
 
-            return resturantTable.TableId;
+            return resturantTable;
         }
 
         public async Task<bool> DeleteResturantTableAsync(int id)

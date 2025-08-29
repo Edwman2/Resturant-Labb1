@@ -14,12 +14,12 @@ namespace Resturant_Labb1.Repositories
             _context = context;
         }
 
-        public async Task<int> AddCustomerAsync(Customer customer)
+        public async Task<Customer> AddCustomerAsync(Customer customer)
         {
-            _context.Customers.AddAsync(customer);
+            _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
 
-            return customer.CustomerId;
+            return customer;
         }
 
         public async Task<bool> DeleteCustomerAsync(int Id)

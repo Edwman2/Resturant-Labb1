@@ -30,8 +30,9 @@ namespace Resturant_Labb1.Services
 
             return new TableDTO
             {
-                TableNumber = resturantTable.TableNumber,
-                Seats = resturantTable.Seats
+                TableId = newResturantTable.TableId,
+                TableNumber = newResturantTable.TableNumber,
+                Seats = newResturantTable.Seats
             };
 
             
@@ -56,7 +57,7 @@ namespace Resturant_Labb1.Services
             return tableDTO;
         }
 
-        public async Task<TableDTO> GetResturantTablesById(int TableId)
+        public async Task<TableDTO> GetResturantTablesByIdAsync(int TableId)
         {
             var tables = await _resturantTableRepo.GetResturantTablesById(TableId);
 
@@ -76,7 +77,7 @@ namespace Resturant_Labb1.Services
             return resturantTableDTO;
         }
 
-        public async Task<bool> UpdateResturantTableAsync(int id, CreateTableDTO createTableDTO)
+        public async Task<bool> UpdateResturantTableAsync(int id, UpdateTableDTO createTableDTO)
         {
             var resturantTable = await _resturantTableRepo.GetResturantTablesById(id);
             if(resturantTable == null)

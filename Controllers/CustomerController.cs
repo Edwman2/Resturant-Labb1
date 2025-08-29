@@ -39,7 +39,7 @@ namespace Resturant_Labb1.Controllers
 
         }
         [HttpPost]
-        public async Task<ActionResult<ResponseCustomerDTO>> CreateCustomerAsync(ResponseCustomerDTO responseCustomerDTO)
+        public async Task<ActionResult<CustomerDTO>> CreateCustomerAsync(CustomerDTO responseCustomerDTO)
         {
             var createdCustomer = await _customerService.CreateCustomerAsync(responseCustomerDTO);
 
