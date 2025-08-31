@@ -42,21 +42,29 @@ namespace Resturant_Labb1.Controllers
             return Ok(booking);
         }
         [HttpPost("CheckAvailability")]
-        public async Task<ActionResult> CheckAvailability([FromBody] BookingDTO bookingDTO)
+        public async Task<ActionResult> CheckAvailability([FromBody] CheckBookingAvailabilityDTO checkDTO)
         {
-            var isAvailable = await _bookingService.FindAvailableTable(bookingDTO);
-            if(isAvailable != null)
+            try
             {
-                return Ok(new { Message = "Table is available" });
+                var isAvailable = await _bookingService.FindAvailableTable(checkDTO);
+
+                if (isAvailable == null)
+                {
+                    return BadRequest(new { Message = "No available table at the time or too many guests" });
+                }
+
+                return Ok(new { Message = "Table is available",
+                Table = isAvailable});
+
             }
-            else
+            catch(Exception ex)
             {
-                return BadRequest(new { Message = "Table is already booked" });
+                return StatusCode(500, new { Message = "An unexpected error occured", Details = ex.Message });
             }
         }
 
         [HttpPost]
-        public async Task<ActionResult<BookingDTO>> CreateBooking([FromBody] BookingDTO bookingDTO)
+        public async Task<ActionResult<BookingDTO>> CreateBooking([FromBody] CreateBookingDTO bookingDTO)
         {
             var newBooking = await _bookingService.BookTableAsync(bookingDTO);
             if(newBooking == null)

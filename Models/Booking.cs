@@ -7,7 +7,7 @@ namespace Resturant_Labb1.Models
         [Key]
         public int BookingId { get; set; }  
         public DateTime BookingTime { get; set; }
-        public DateTime EndTime => BookingTime.AddHours(2);
+        public DateTime EndTime { get; set; }
         public int NumberOfGuests { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
