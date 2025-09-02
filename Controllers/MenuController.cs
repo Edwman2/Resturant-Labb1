@@ -9,11 +9,11 @@ namespace Resturant_Labb1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MenuItemController : ControllerBase
+    public class MenuController : ControllerBase
     {
         private readonly IMenuItemService _itemService;
 
-        public MenuItemController(IMenuItemService itemService)
+        public MenuController(IMenuItemService itemService)
         {
             _itemService = itemService;
         }
@@ -38,7 +38,7 @@ namespace Resturant_Labb1.Controllers
             return Ok(item);
         }
         [HttpPost]
-        public async Task<ActionResult<MenuItemDTO>> CreateMenuItemAsync([FromBody]MenuItemDTO itemDTO)
+        public async Task<ActionResult<MenuItemDTO>> CreateMenuItemAsync([FromBody]CreateMenuItemDTO itemDTO)
         {
             var newItem = await _itemService.CreateMenuItemAsync(itemDTO);
 

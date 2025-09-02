@@ -7,9 +7,9 @@ namespace Resturant_Labb1.Services.IServices
     public interface IResturantTableService
     {
         Task<List<TableDTO>> GetAllResturantTablesAsync();
-        Task<TableDTO> GetResturantTablesByIdAsync(int TableId);
-        Task<TableDTO> CreateResturantTableAsync(TableDTO tableDTO);
-        Task<bool> DeleteResturantTableAsync(int TableId);
+        Task<TableDTO> GetResturantTablesByIdAsync(int id);
+        Task<TableDTO> CreateResturantTableAsync(CreateTableDTO tableDTO);
+        Task<bool> DeleteResturantTableAsync(int id);
         Task<bool> UpdateResturantTableAsync(int TableId, UpdateTableDTO createTableDTO);
 
     }

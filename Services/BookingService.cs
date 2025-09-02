@@ -19,7 +19,7 @@ namespace Resturant_Labb1.Services
             _tableRepo = tableRepo;
         }
 
-        public async Task<TableDTO> FindAvailableTable(CheckBookingAvailabilityDTO checkDTO)
+        public async Task<TableDTO> FindAvailableTable(CheckBookingDTO checkDTO)
         {
             var tables = await _tableRepo.GetAllResturantTablesAsync();
             var bookings = await _bookingRepo.GetAllBookingsAsync();
@@ -48,7 +48,7 @@ namespace Resturant_Labb1.Services
         }
         public async Task<BookingDTO> BookTableAsync(CreateBookingDTO bookingDTO)
         {
-            var check = new CheckBookingAvailabilityDTO
+            var check = new CheckBookingDTO
             {
                 BookingTime = bookingDTO.BookingTime,
                 NumberOfGuests = bookingDTO.NumberOfGuests

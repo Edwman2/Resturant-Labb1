@@ -8,7 +8,7 @@ namespace Resturant_Labb1.Services.IServices
     {
         Task<List<MenuItemDTO>> GetAllMenuItemsAsync();
         Task<MenuItemDTO> GetMenuItemByIdAsync(int id);
-        Task<MenuItemDTO> CreateMenuItemAsync(MenuItemDTO menuDTO);
+        Task<MenuItemDTO> CreateMenuItemAsync(CreateMenuItemDTO menuDTO);
         Task<bool> UpdateItemAsync(int id, UpdateMenuItemDTO itemDTO);
         Task<bool> DeleteMenuItemAsync(int id);
     }

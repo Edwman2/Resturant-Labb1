@@ -17,7 +17,7 @@ namespace Resturant_Labb1.Services
             _resturantTableRepo = resturantTableRepository;
         }
 
-        public async Task<TableDTO> CreateResturantTableAsync(TableDTO tableDTO)
+        public async Task<TableDTO> CreateResturantTableAsync(CreateTableDTO tableDTO)
         {
             var resturantTable = new Table
             {
@@ -38,9 +38,11 @@ namespace Resturant_Labb1.Services
             
         }
 
-        public async Task<bool> DeleteResturantTableAsync(int TableId)
+        public async Task<bool> DeleteResturantTableAsync(int id)
         {
-           return await _resturantTableRepo.DeleteResturantTableAsync(TableId);
+           
+          return await _resturantTableRepo.DeleteResturantTableAsync(id);
+           
             
         }
 

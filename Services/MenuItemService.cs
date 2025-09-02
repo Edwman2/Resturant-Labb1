@@ -15,7 +15,7 @@ namespace Resturant_Labb1.Services
             _menuRepo = menuRepo;
         }
 
-        public async Task<MenuItemDTO> CreateMenuItemAsync(MenuItemDTO menuDTO)
+        public async Task<MenuItemDTO> CreateMenuItemAsync(CreateMenuItemDTO menuDTO)
         {
             var item = new MenuItem
             {

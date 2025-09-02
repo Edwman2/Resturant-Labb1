@@ -42,7 +42,7 @@ namespace Resturant_Labb1.Controllers
             return Ok(booking);
         }
         [HttpPost("CheckAvailability")]
-        public async Task<ActionResult> CheckAvailability([FromBody] CheckBookingAvailabilityDTO checkDTO)
+        public async Task<ActionResult> CheckAvailability([FromBody] CheckBookingDTO checkDTO)
         {
             try
             {
