@@ -7,9 +7,9 @@ namespace Resturant_Labb1.Services.IServices
     public interface IMenuItemService
     {
         Task<List<MenuItemDTO>> GetAllMenuItemsAsync();
-        Task<MenuItemDTO> GetMenuItemByIdAsync();
-        Task<CreateMenuItemDTO> CreateMenuItemAsync(CreateMenuItemDTO MenuDTO);
-        Task<UpdateMenuItemDTO> UpdateItemAsync();
+        Task<MenuItemDTO> GetMenuItemByIdAsync(int id);
+        Task<MenuItemDTO> CreateMenuItemAsync(MenuItemDTO menuDTO);
+        Task<bool> UpdateItemAsync(int id, UpdateMenuItemDTO itemDTO);
         Task<bool> DeleteMenuItemAsync(int id);
     }
 }

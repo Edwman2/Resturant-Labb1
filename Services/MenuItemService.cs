@@ -15,7 +15,7 @@ namespace Resturant_Labb1.Services
             _menuRepo = menuRepo;
         }
 
-        public async Task<CreateMenuItemDTO> CreateMenuItemAsync(CreateMenuItemDTO menuDTO)
+        public async Task<MenuItemDTO> CreateMenuItemAsync(MenuItemDTO menuDTO)
         {
             var item = new MenuItem
             {
@@ -24,10 +24,11 @@ namespace Resturant_Labb1.Services
                 Description = menuDTO.Description
             };
 
-            var newItem = await _menuRepo.AddMenuItemsAsync(item);
+            var newItem = await _menuRepo.AddMenuItemAsync(item);
 
-            return new CreateMenuItemDTO
+            return new MenuItemDTO
             {
+                ItemId = newItem.ItemId,
                 Name = newItem.Name,
                 Price = newItem.Price,
                 Description = newItem.Description
@@ -73,9 +74,26 @@ namespace Resturant_Labb1.Services
             return item;
         }
 
-        public Task<UpdateMenuItemDTO> UpdateItemAsync()
+        public async Task<bool> UpdateItemAsync(int id, UpdateMenuItemDTO itemDTO)
         {
-            throw new NotImplementedException();
+            var menuItem = await _menuRepo.GetMenuItemByIdAsync(id);
+            if(menuItem == null)
+            {
+                return false;
+            }
+            menuItem.Name = itemDTO.Name;
+            menuItem.Price = itemDTO.Price;
+            menuItem.Description = itemDTO.Description;
+            menuItem.IsPopular = itemDTO.IsPopular;
+
+            await _menuRepo.SaveChangesAsync();
+
+            return true;
+
+            
+
+            
+
         }
     }
 }

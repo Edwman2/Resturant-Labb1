@@ -6,7 +6,7 @@ namespace Resturant_Labb1.Repositories.IRepository
     {
         Task<List<MenuItem>> GetAllMenuItemsAsync();
         Task<MenuItem> GetMenuItemByIdAsync(int id);
-        Task<MenuItem> AddMenuItemsAsync(MenuItem item);
+        Task<MenuItem> AddMenuItemAsync(MenuItem item);
         Task<bool> DeleteMenuItemAsync(int id);
         Task SaveChangesAsync();
     }

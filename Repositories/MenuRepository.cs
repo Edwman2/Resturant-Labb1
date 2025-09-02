@@ -29,7 +29,7 @@ namespace Resturant_Labb1.Repositories
             
         }
 
-        public async Task<MenuItem> AddMenuItemsAsync(MenuItem item)
+        public async Task<MenuItem> AddMenuItemAsync(MenuItem item)
         {
             _context.MenuItems.Add(item);
             await _context.SaveChangesAsync();
