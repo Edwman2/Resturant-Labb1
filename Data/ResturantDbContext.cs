@@ -14,6 +14,7 @@ namespace Resturant_Labb1.Data
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Table> Tables { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

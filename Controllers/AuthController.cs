@@ -75,10 +75,38 @@ namespace Resturant_Labb1.Controllers
 
             var token = GenerateJwtToken(user);
 
+            var refreshToken = new RefreshToken
+            {
+                Token = Guid.NewGuid().ToString(),
+                ExpiresAt = DateTime.UtcNow.AddDays(7),
+                SuperAdminId = user.SuperAdminId
+            };
+
+            _context.RefreshTokens.Add(refreshToken);
+            await _context.SaveChangesAsync();
 
 
 
-            return Ok(new {token});
+
+            return Ok(new 
+            {
+                accessToken = token,
+                refreshToken = refreshToken.Token
+            });
+        }
+
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout([FromBody] LogoutDTO logoutDTO)
+        {
+            var success = await _adminService.LogoutAsync(logoutDTO.Username, logoutDTO.RefreshToken);
+
+            if(!success)
+            {
+                return Unauthorized(new { message = "logout failed" });
+
+               
+            }
+            return Ok(new { message = "Logged out successfully" });
         }
 
         private string GenerateJwtToken(SuperAdmin admin)

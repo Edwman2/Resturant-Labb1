@@ -57,7 +57,11 @@ namespace Resturant_Labb1
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:key"]))
                     };
                 });
-            builder.Services.AddAuthorization();
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("SuperAdmin", policy =>
+                policy.RequireRole("Superadmin"));
+            });
 
             var app = builder.Build();
 

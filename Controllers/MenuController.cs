@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Resturant_Labb1.DTOs.RequestDTOs;
 using Resturant_Labb1.DTOs.ResponseDTOs;
@@ -7,6 +8,7 @@ using Resturant_Labb1.Services.IServices;
 
 namespace Resturant_Labb1.Controllers
 {
+    [Authorize(Roles ="SuperAdmin")]
     [Route("api/[controller]")]
     [ApiController]
     public class MenuController : ControllerBase
@@ -17,7 +19,6 @@ namespace Resturant_Labb1.Controllers
         {
             _itemService = itemService;
         }
-
         [HttpGet]
         public async Task<ActionResult<List<MenuItemDTO>>> GetAllMenuItemsAsync()
         {

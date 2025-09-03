@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Resturant_Labb1.Data;
 using Resturant_Labb1.DTOs.RequestDTOs;
 using Resturant_Labb1.DTOs.ResponseDTOs;
 using Resturant_Labb1.Models;
@@ -11,11 +13,13 @@ namespace Resturant_Labb1.Services
     {
         private readonly ISuperAdminRepository _superAdminRepo;
         private readonly IPasswordHasher<SuperAdmin> _passwordHasher;
+        private readonly ResturantDbContext _context;
 
-        public SuperAdminService(ISuperAdminRepository adminRepo, IPasswordHasher<SuperAdmin> passwordHasher)
+        public SuperAdminService(ISuperAdminRepository adminRepo, IPasswordHasher<SuperAdmin> passwordHasher, ResturantDbContext context)
         {
             _superAdminRepo = adminRepo;
             _passwordHasher = passwordHasher;
+            _context = context;
         }
 
         public async Task<bool> LoginAsync(LoginDTO loginDTO)
@@ -43,12 +47,38 @@ namespace Resturant_Labb1.Services
 
             return new SuperAdminDTO
             {
-                Id = superAdmin.Id,
+                SuperAdminId = superAdmin.SuperAdminId,
                 Username = superAdmin.Username,
                 Role = superAdmin.Role
             };
 
 
+        }
+        public async Task<bool> LogoutAsync(string username, string refreshToken)
+        {
+            var user = await _context.SuperAdmins
+                .FirstOrDefaultAsync(u => u.Username == username);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            var token = await _context.RefreshTokens
+                .FirstOrDefaultAsync(t => t.Token == refreshToken && t.SuperAdminId == user.SuperAdminId);
+
+            if (token == null)
+            {
+                return false;
+            }
+
+            token.IsRevoked = true;
+            token.RevokedAt = DateTime.UtcNow;
+
+            _context.RefreshTokens.Update(token);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }
